@@ -19,24 +19,29 @@
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             self.packages.${system}.default
-            inputs.symdig.packages.${system}.default
             just
             nushell
           ];
         };
         packages = rec {
           default = fdesktop;
-          fdesktop = pkgs.stdenv.mkDerivation {
+          fdesktop = pkgs.stdenv.mkDerivation rec {
             name = "fdesktop";
             src = ./src;
             buildInputs = with pkgs; [
               inputs.symdig.packages.${system}.default
+              makeWrapper
               nushell
             ];
             installPhase = ''
               mkdir -p $out/bin
-              cp ./main.nu $out/bin/fdesktop
-              chmod +x $out/bin/fdesktop
+              cp ./main.nu $out/bin/${name}
+              chmod +x $out/bin/${name}
+              wrapProgram $out/bin/${name} \
+                --prefix PATH : ${pkgs.lib.makeBinPath [
+                inputs.symdig.packages.${system}.default
+                pkgs.nushell
+              ]}
             '';
           };
         };
