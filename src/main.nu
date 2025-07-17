@@ -1,5 +1,11 @@
 #!/usr/bin/env nu
 
-def main [] {
-  print "Hello, world!"
+def main [
+  app: string
+] {
+  symdig $app
+  | path dirname
+  | path join ../share/applications
+  | path expand
+  | ls $in
 }
