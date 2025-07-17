@@ -2,9 +2,11 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
+
+    symdig.url = "github:valyntyler/symdig";
   };
 
-  outputs = {
+  outputs = inputs @ {
     nixpkgs,
     flake-utils,
     ...
@@ -15,6 +17,7 @@
       in {
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
+            inputs.symdig.packages.${system}.default
             just
             nushell
           ];
