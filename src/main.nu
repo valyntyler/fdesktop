@@ -10,4 +10,5 @@ def main [
   | ls $in
   | get name
   | path basename
+  | to text
 }
