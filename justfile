@@ -1,2 +1,2 @@
 run:
-  @ nu src/main.nu
+  @ nu src/main.nu blender
