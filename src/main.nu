@@ -8,4 +8,6 @@ def main [
   | path join ../share/applications
   | path expand
   | ls $in
+  | get name
+  | path basename
 }
