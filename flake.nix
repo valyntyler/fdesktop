@@ -19,6 +19,7 @@
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             self.packages.${system}.default
+            inputs.symdig.packages.${system}.default
             just
             nushell
           ];
